@@ -18,6 +18,10 @@ public class MovimientoJugador : MonoBehaviour
 
     private Boolean saltoPendiente;
     private Rigidbody2D fisica;
+
+    private SpriteRenderer renderizador;
+
+    private Animator animador;
     private Vector2 entradaX;
 
     private Boolean estaTocandoSuelo;
@@ -27,6 +31,10 @@ public class MovimientoJugador : MonoBehaviour
     private void Awake()
     {
         fisica = GetComponent<Rigidbody2D>();
+
+        renderizador = GetComponent<SpriteRenderer>();
+
+        animador = GetComponent<Animator>();
 
     }
 
@@ -57,7 +65,27 @@ public class MovimientoJugador : MonoBehaviour
         {
             saltoPendiente = true;
         }
+
+        AnimarJugador();
     }
+
+    private void AnimarJugador()
+    {
+        if (animador == null)
+            return;
+
+        if (!estaTocandoSuelo)
+        {
+            animador.Play("JugadorSaltando");
+        }
+        else if (Mathf.Abs(fisica.linearVelocity.x) > 0)
+        {
+            animador.Play("JugadorCorriendo");
+        }
+        else
+            animador.Play("JugadorParado");
+    }
+
     private void OnEnable()
     {
         //Si el movimiento de suelo no esta activado lo activamos
@@ -103,5 +131,21 @@ public class MovimientoJugador : MonoBehaviour
             fisica.AddForce(Vector2.up * fuerzaImpulso, ForceMode2D.Impulse);
         }
         saltoPendiente = false;
+
+        OrientarSprite();
+    }
+    private void OrientarSprite()
+    {
+        if(renderizador == null)
+        return;
+
+        if(fisica.linearVelocity.x > 0)
+        {
+            renderizador.flipX = false;
+        }
+        else if(fisica.linearVelocity.x < 0)
+        {
+            renderizador.flipX = true;
+        }
     }
 }
