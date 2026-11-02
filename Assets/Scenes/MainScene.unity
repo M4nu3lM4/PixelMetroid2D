@@ -350,7 +350,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 5, y: 5}
+  m_Size: {x: 0.8, y: 0.8}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -703,7 +703,7 @@ Transform:
   m_GameObject: {fileID: 247863665}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.51, y: -5.12, z: 0}
+  m_LocalPosition: {x: 0.5, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1243,7 +1243,7 @@ Transform:
   m_GameObject: {fileID: 316335299}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.7, y: -5.12, z: 0}
+  m_LocalPosition: {x: -1.5, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2062,7 +2062,7 @@ Transform:
   m_GameObject: {fileID: 801215480}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -5.08, z: 0}
+  m_LocalPosition: {x: 0.03, y: -5.12, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2848,7 +2848,7 @@ Transform:
   m_GameObject: {fileID: 1264622246}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -3.6, y: -5.12, z: 0}
+  m_LocalPosition: {x: 1.5, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3789,7 +3789,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 5, y: 5}
+  m_Size: {x: 0.8, y: 0.8}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -4024,7 +4024,7 @@ Transform:
   m_GameObject: {fileID: 1655447790}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.38, y: -5.12, z: 0}
+  m_LocalPosition: {x: -0.5, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4289,7 +4289,7 @@ PrefabInstance:
     - target: {fileID: 2662090716674274125, guid: 6b81376c6572ea449a83f1a2b64ee020,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 20.03
+      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 2662090716674274125, guid: 6b81376c6572ea449a83f1a2b64ee020,
         type: 3}
@@ -4335,6 +4335,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4713368162056355835, guid: 6b81376c6572ea449a83f1a2b64ee020,
+        type: 3}
+      propertyPath: m_FlipX
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8998430077708446601, guid: 6b81376c6572ea449a83f1a2b64ee020,
+        type: 3}
+      propertyPath: distancia
+      value: 6.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8998430077708446601, guid: 6b81376c6572ea449a83f1a2b64ee020,
+        type: 3}
+      propertyPath: posicionFinal.x
+      value: 1.4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

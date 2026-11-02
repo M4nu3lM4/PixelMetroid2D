@@ -1,4 +1,5 @@
 using UnityEngine;
+
 [RequireComponent(typeof(Rigidbody2D))]
 public class ControlEnemigoHorizontal : MonoBehaviour
 {
@@ -6,33 +7,48 @@ public class ControlEnemigoHorizontal : MonoBehaviour
 
     public Vector2 posicionFinal;
     private Vector2 posicionInicial;
+
     private Rigidbody2D fisica;
 
-    [SerializeField] private float tolerancia = 0.01f;
-    private bool movimientoHorizontal = true;
+    [SerializeField] private SpriteRenderer sprite;
+    [SerializeField] private float tolerancia = 0.1f;
+
+    private bool haciaFinal = true;
+
+    public float distancia = 4f;
 
     private void Awake()
     {
         fisica = GetComponent<Rigidbody2D>();
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         posicionInicial = fisica.position;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        posicionFinal = posicionInicial + Vector2.left * distancia;
     }
 
     private void FixedUpdate()
     {
-        //Le aplico la velocidad para movimiento horizontal
-        fisica.linearVelocity = new Vector2(fisica.position.x * velocidad, fisica.linearVelocity.y);
+        float objetivoX = haciaFinal ? posicionFinal.x : posicionInicial.x;
 
+        // Al llegar a la esquina, cambia de sentido
+        if (Mathf.Abs(fisica.position.x - objetivoX) <= tolerancia)
+        {
+            haciaFinal = !haciaFinal;
+            objetivoX = haciaFinal ? posicionFinal.x : posicionInicial.x;
+        }
 
+        // +1 si el objetivo está a la derecha, -1 si está a la izquierda
+        float direccion = Mathf.Sign(objetivoX - fisica.position.x);
+
+        // Solo cambio la X; la Y la controla la gravedad
+        fisica.linearVelocity = new Vector2(direccion * velocidad, fisica.linearVelocity.y);
+
+        // Girar el sprite (si mira hacia atrás, cambia < por >)
+        if (sprite != null)
+        {
+            sprite.flipX = direccion > 0f;
+        }
     }
 }
