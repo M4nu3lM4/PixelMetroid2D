@@ -16,6 +16,9 @@ public class MovimientoJugador : MonoBehaviour
     public float fuerzaImpulso = 5f; //Fuerza aplicada al saltar
     [SerializeField] private LayerMask capaSuelo;
 
+    [Header("Reaparicion")]
+    [SerializeField] private Transform spawnPoint;
+
     private Boolean saltoPendiente;
     private Rigidbody2D fisica;
 
@@ -147,5 +150,17 @@ public class MovimientoJugador : MonoBehaviour
         {
             renderizador.flipX = true;
         }
+    }
+
+    public void ReaparecerJugador()
+    {
+        if(spawnPoint == null)
+        {
+            Debug.LogError("Asigna un spawn al jugador",this);
+            enabled = false;
+            return;
+        }
+        fisica.position = (Vector2)spawnPoint.position;
+        fisica.linearVelocity = Vector2.zero;
     }
 }
