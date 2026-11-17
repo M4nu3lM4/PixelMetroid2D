@@ -68,6 +68,9 @@ public class MovimientoJugador : MonoBehaviour
     private float tiempoReal;
     [SerializeField] private int tiempoEmpleado;
     [SerializeField, Min(1)] private int tiempoLimiteNivel = 100;
+    [Header("Canvas")]
+    [SerializeField] private Canvas canvasInterfaz;
+    private ControlHUD hud;
 
     // Awake se ejecuta al crear el objeto, antes de Start: aquí se cogen las referencias a los componentes
     private void Awake()
@@ -91,6 +94,7 @@ public class MovimientoJugador : MonoBehaviour
             Debug.LogError("El jugador no tiene asignado el objeto Sprite renderer");
 
         tiempoInicio = Time.time;
+        inicializaHud();
     }
 
     // Detecta si estamos en el suelo y si hay que saltar. Se llama desde Update
@@ -132,6 +136,25 @@ public class MovimientoJugador : MonoBehaviour
     
 
         AnimarJugador();
+    }
+
+    private void inicializaHud()
+    {
+        if (canvasInterfaz != null)
+        {
+            hud = canvasInterfaz.GetComponent<ControlHUD>();
+        }
+        else
+            Debug.LogError("Asigna el objeto Canvas con el componente ControlHUD al atributo Canvas del Jugador.");
+
+        if (hud != null)
+        {
+            hud.setVidas(vidas);
+            hud.setTiempo(tiempoLimiteNivel);
+            hud.setPowerUps(GameObject.FindGameObjectsWithTag("PowerUp").Length);
+        }
+        else
+            Debug.LogError("Asigna el objeto Canvas con el componente ControlHUD al atributo Canvas del Jugador.");
     }
 
     // Calcula el tiempo transcurrido y termina la partida si se pasa del límite
@@ -269,6 +292,8 @@ public class MovimientoJugador : MonoBehaviour
         if (!vulnerable) return;// Si está en periodo de invulnerabilidad, no hace nada
         vulnerable = false;
         vidas--;
+
+        hud.setVidas(vidas);
 
         // Feedback visual del daño: el sprite se pone azul
         if (renderizador != null)
