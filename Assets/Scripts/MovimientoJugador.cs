@@ -164,11 +164,15 @@ public class MovimientoJugador : MonoBehaviour
         
         tiempoReal = Time.time - tiempoInicio;
         tiempoEmpleado = Mathf.FloorToInt(tiempoReal);// Redondea hacia abajo a segundos enteros
+        
         if (tiempoEmpleado >= tiempoLimiteNivel)
         {
             FinJuego();
             return;
         }
+        hud.setPowerUps(GameObject.FindGameObjectsWithTag("PowerUp").Length);
+        int segundosRestantes = Mathf.CeilToInt(tiempoLimiteNivel - tiempoReal);
+        hud.setTiempo(segundosRestantes);
     }
 
     // Elige la animación según el estado del jugador

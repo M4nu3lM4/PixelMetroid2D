@@ -35,7 +35,7 @@ public class ControlHUD : MonoBehaviour
         if (tiempoTxt == null) return;
 
         int minutos = segundosrestantes / 60;
-        int segundos = segundosrestantes & 60;
+        int segundos = segundosrestantes % 60;
 
         tiempoTxt.text = minutos.ToString("00") + ":" + segundos.ToString("00");
     }
