@@ -317,8 +317,7 @@ public class MovimientoJugador : MonoBehaviour
         vulnerable = false;
         vidas--;
 
-        if (vidasSonido != null)
-            efectoSonido.PlayOneShot(vidasSonido);
+        
 
         hud.setVidas(vidas);
 
@@ -328,6 +327,8 @@ public class MovimientoJugador : MonoBehaviour
             renderizador.color = Color.blue;
         }
 
+        
+
         if (vidas <= 0)
         {
             FinJuego();
@@ -335,6 +336,9 @@ public class MovimientoJugador : MonoBehaviour
         }
         // Tras segundosInvulnerable segundos vuelve a ser vulnerable
         Invoke(nameof(HacerVulnerable), segundosInvulnerable);
+
+        if (vidasSonido != null)
+            efectoSonido.PlayOneShot(vidasSonido);
     }
 
     // Termina la invulnerabilidad y restaura el color
@@ -370,5 +374,13 @@ public class MovimientoJugador : MonoBehaviour
         controlDatosJuego.guardarResultado(true, puntuacion);
 
         SceneManager.LoadScene("FinNivel");
+    }
+
+    public void EstablecerPuntoReaparicion(Transform nuevoPunto)
+    {
+        if (nuevoPunto == null) return;
+        
+            spawnPoint = nuevoPunto;
+        
     }
 }
