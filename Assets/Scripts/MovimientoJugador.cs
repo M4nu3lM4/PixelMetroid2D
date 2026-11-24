@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering.PostProcessing;
+using UnityEngine.SceneManagement;
 using MinAttribute = UnityEngine.MinAttribute;
 
 [RequireComponent (typeof(Rigidbody2D))]
@@ -72,6 +73,13 @@ public class MovimientoJugador : MonoBehaviour
     [SerializeField] private Canvas canvasInterfaz;
     private ControlHUD hud;
 
+    private ControlDatosJuego controlDatosJuego;
+
+    [Header("Audio")]
+    [SerializeField] private AudioClip saltoSonido;
+    [SerializeField] private AudioClip vidasSonido;
+    private AudioSource efectoSonido;
+
     // Awake se ejecuta al crear el objeto, antes de Start: aquí se cogen las referencias a los componentes
     private void Awake()
     {
@@ -94,6 +102,15 @@ public class MovimientoJugador : MonoBehaviour
             Debug.LogError("El jugador no tiene asignado el objeto Sprite renderer");
 
         tiempoInicio = Time.time;
+
+        controlDatosJuego = ControlDatosJuego.instancia;
+        if (controlDatosJuego == null)
+        {
+            Debug.LogError("Añade Datos Juego al nivel");
+        }
+        else
+            controlDatosJuego.reiniciarPartida();
+
         inicializaHud();
     }
 
@@ -248,6 +265,9 @@ public class MovimientoJugador : MonoBehaviour
         if (saltoPendiente)
         {
             fisica.AddForce(Vector2.up * fuerzaImpulso, ForceMode2D.Impulse);
+
+            //if (saltoSonido != null)
+                //efectoSonido.PlayOneShot(saltoSonido);
         }
         // El salto ya se ha aplicado
         saltoPendiente = false;
@@ -297,6 +317,9 @@ public class MovimientoJugador : MonoBehaviour
         vulnerable = false;
         vidas--;
 
+        if (vidasSonido != null)
+            efectoSonido.PlayOneShot(vidasSonido);
+
         hud.setVidas(vidas);
 
         // Feedback visual del daño: el sprite se pone azul
@@ -326,7 +349,26 @@ public class MovimientoJugador : MonoBehaviour
     // Fin de partida: por ahora solo desactiva al jugador
     private void FinJuego()
     {
-        Debug.Log("Juego finalizado.");
-        gameObject.SetActive(false);
+        if(controlDatosJuego == null)
+        {
+            Debug.LogError("Falta el objeto Control Datos Juego para poder guardar el resultado de la partida",this);
+            return;
+        }
+        controlDatosJuego.guardarResultado(false, 0);
+        SceneManager.LoadScene("FinNivel");
+    }
+
+    //Paramos el jugador y guardamos los datos de la partida
+    public void Victoria()
+    {
+        puntuacion = vidas * 100 + Mathf.Max(0, tiempoLimiteNivel - tiempoEmpleado);
+
+        saltoPendiente = false;
+
+        fisica.linearVelocity = Vector2.zero;
+
+        controlDatosJuego.guardarResultado(true, puntuacion);
+
+        SceneManager.LoadScene("FinNivel");
     }
 }
