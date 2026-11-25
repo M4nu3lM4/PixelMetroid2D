@@ -336,9 +336,9 @@ public class MovimientoJugador : MonoBehaviour
         }
         // Tras segundosInvulnerable segundos vuelve a ser vulnerable
         Invoke(nameof(HacerVulnerable), segundosInvulnerable);
+        //if (saltoSonido != null)
+        //efectoSonido.PlayOneShot(saltoSonido);
 
-        if (vidasSonido != null)
-            efectoSonido.PlayOneShot(vidasSonido);
     }
 
     // Termina la invulnerabilidad y restaura el color
